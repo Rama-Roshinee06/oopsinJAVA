@@ -1,0 +1,24 @@
+package dsajava;
+class rectangle{
+	/*a class with 2 variables.2 functions*/;
+	int length;
+	int breadth;
+	void perimeter(int a,int b){
+	int p=2*(a+b);
+	System.out.println("THE PERIMETER IS:"+p);
+    }
+	void area(int a,int b){
+	int ar=a*b;
+	System.out.println("THE AREA IS:"+ar);
+	}
+}
+public class oops2 {
+
+	public static void main(String[] args) {
+		rectangle q=new rectangle();
+		int a=10;
+		int b=20;
+		q.perimeter(a,b);
+		q.area(a,b);
+	}
+}
