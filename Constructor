@@ -1,0 +1,23 @@
+package dsajava;
+import java.util.*;
+class person {
+      int age;
+      String name;
+      person(int age,String name){
+    	  this.name=name;
+    	  this.age=age;
+    	  System.out.println("AGE:"+this.age+" "+ "NAME:"+this.name);
+      }
+}
+public class oops1{
+	
+public static void main(String[] args) {
+	  Scanner a=new Scanner(System.in);
+	  System.out.println("ENTER AGE:");
+	  int age=a.nextInt();
+	  a.nextLine();
+	  System.out.println("ENTER NAME:");
+	  String name=a.nextLine();
+	  person data=new person(age,name);
+}
+}
