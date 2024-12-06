@@ -1,0 +1,152 @@
+package dsajava;
+import java.util.*;
+
+class Customer {
+    int accno;
+    String name;
+    int balance;
+
+    Customer(int accno, String name, int balance) {
+        this.accno = accno;
+        this.name = name;
+        this.balance = balance;
+    }
+
+    void displayDetails() {
+        System.out.println("Account No: " + accno);
+        System.out.println("Name: " + name);
+        System.out.println("Balance: " + balance);
+    }
+}
+
+class Bank {
+    private List<Customer> customers = new ArrayList<>();
+
+    // Add a new account
+    void addAccount(int accno, String name, int balance) {
+        Customer newCustomer = new Customer(accno, name, balance);
+        customers.add(newCustomer);
+        System.out.println("Account added successfully!");
+    }
+
+    // Deposit money into an account
+    void deposit(int accno, int amount) {
+        for (Customer customer : customers) {
+            if (customer.accno == accno) {
+                customer.balance += amount;
+                System.out.println("Deposited " + amount + ". New Balance: " + customer.balance);
+                return;
+            }
+        }
+        System.out.println("Account not found.");
+    }
+
+    // Withdraw money from an account
+    void withdraw(int accno, int amount) {
+        for (Customer customer : customers) {
+            if (customer.accno == accno) {
+                if (customer.balance >= amount) {
+                    customer.balance -= amount;
+                    System.out.println("Withdrew " + amount + ". New Balance: " + customer.balance);
+                } else {
+                    System.out.println("Insufficient balance.");
+                }
+                return;
+            }
+        }
+        System.out.println("Account not found.");
+    }
+
+    // Update account name
+    void updateAccountName(int accno, String newName) {
+        for (Customer customer : customers) {
+            if (customer.accno == accno) {
+                customer.name = newName;
+                System.out.println("Name updated successfully!");
+                return;
+            }
+        }
+        System.out.println("Account not found.");
+    }
+
+    // Display account details
+    void displayAccount(int accno) {
+        for (Customer customer : customers) {
+            if (customer.accno == accno) {
+                customer.displayDetails();
+                return;
+            }
+        }
+        System.out.println("Account not found.");
+    }
+}
+
+public class BankApp {
+    public static void main(String[] args) {
+        Bank bank = new Bank();
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\n1. Add Account");
+            System.out.println("2. Deposit");
+            System.out.println("3. Withdraw");
+            System.out.println("4. Update Account Name");
+            System.out.println("5. Display Account Details");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Account No: ");
+                    int accno = sc.nextInt();
+                    sc.nextLine(); // Consume newline
+                    System.out.print("Enter Name: ");
+                    String name = sc.nextLine();
+                    System.out.print("Enter Initial Balance: ");
+                    int balance = sc.nextInt();
+                    bank.addAccount(accno, name, balance);
+                    break;
+
+                case 2:
+                    System.out.print("Enter Account No: ");
+                    accno = sc.nextInt();
+                    System.out.print("Enter Amount to Deposit: ");
+                    int depositAmount = sc.nextInt();
+                    bank.deposit(accno, depositAmount);
+                    break;
+
+                case 3:
+                    System.out.print("Enter Account No: ");
+                    accno = sc.nextInt();
+                    System.out.print("Enter Amount to Withdraw: ");
+                    int withdrawAmount = sc.nextInt();
+                    bank.withdraw(accno, withdrawAmount);
+                    break;
+
+                case 4:
+                    System.out.print("Enter Account No: ");
+                    accno = sc.nextInt();
+                    sc.nextLine(); // Consume newline
+                    System.out.print("Enter New Name: ");
+                    String newName = sc.nextLine();
+                    bank.updateAccountName(accno, newName);
+                    break;
+
+                case 5:
+                    System.out.print("Enter Account No: ");
+                    accno = sc.nextInt();
+                    bank.displayAccount(accno);
+                    break;
+
+                case 6:
+                    System.out.println("Exiting...");
+                    sc.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid choice. Try again.");
+            }
+        }
+    }
+}
